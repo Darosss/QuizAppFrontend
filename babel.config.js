@@ -8,8 +8,16 @@ module.exports = {
           src: "./src",
           "@assets": "./src/assets",
           "@components": "./src/components",
+          "@api": "./src/api",
           "@hooks": "./src/hooks",
         },
+      },
+    ],
+    [
+      "module:react-native-dotenv",
+      {
+        moduleName: "@env",
+        path: ".env",
       },
     ],
   ],
