@@ -1,5 +1,5 @@
 import {Text, View} from "react-native";
-import {QuizQuestionType, QuizesEndpoints, useApi} from "@api/";
+import {QuizQuestionType, quizesEndpointsUrls, useApi} from "@api/";
 import {Props} from "src/types";
 import {styles} from "./styles";
 import {SubmitQuizButton} from "./SubmitQuizButton";
@@ -17,7 +17,7 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
   const {
     apiData: {data, ApiError: ErrorComponent, Loading},
   } = useApi<QuizQuestionType[]>(
-    QuizesEndpoints.QUIZES + route.params.quizId,
+    quizesEndpointsUrls.quizesQuestions(route.params.quizId),
     "GET",
   );
 
@@ -26,7 +26,6 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
   if (!data) return <NoQuizQuestions />;
 
   const currentQuestionData = data.at(currentQuestion);
-
   const questionsCount = data.length;
   const handleOnQuestionNavigate = (direction: -1 | 1) => {
     if (direction === 1 && currentQuestion < questionsCount - 1) {
@@ -66,12 +65,12 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
 
       {currentQuestionData ? (
         <AnswersView
-          questionId={currentQuestionData.id}
+          questionId={currentQuestionData._id}
           currentQuestionAnswerId={answeredQuestions.get(
-            currentQuestionData.id,
+            currentQuestionData._id,
           )}
           handleOnClickAnswer={answerId =>
-            handleOnClickAnswer(currentQuestionData.id, answerId)
+            handleOnClickAnswer(currentQuestionData._id, answerId)
           }
         />
       ) : null}

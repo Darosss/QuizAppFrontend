@@ -1,5 +1,5 @@
 import {FlatList, Text, TouchableOpacity, View} from "react-native";
-import {QuizesEndpoints, useApi, type QuizCategoriesType} from "@api/";
+import {type QuizCategoriesType, useApi, quizesEndpointsUrls} from "@api/";
 import {Props} from "src/types";
 import {styles} from "./styles";
 
@@ -9,7 +9,7 @@ export const QuizCategories = ({
 }: Props<"QuizCategories">) => {
   const {
     apiData: {data, Loading, ApiError},
-  } = useApi<QuizCategoriesType[]>(QuizesEndpoints.QUIZES_CATEGORIES, "GET");
+  } = useApi<QuizCategoriesType[]>(quizesEndpointsUrls.quizes, "GET");
 
   if (Loading) return <Loading />;
   if (ApiError) return <ApiError />;
@@ -18,7 +18,7 @@ export const QuizCategories = ({
     <View>
       <FlatList
         data={data}
-        keyExtractor={({id}) => id}
+        keyExtractor={({_id}) => _id}
         ListHeaderComponent={() => (
           <View style={styles.dataHeader}>
             <Text>Name</Text>
@@ -30,7 +30,7 @@ export const QuizCategories = ({
             style={styles.dataItem}
             onPress={() =>
               navigation.navigate("Quizes", {
-                quizId: item.id,
+                quizId: item._id,
                 quizName: item.name,
               })
             }>

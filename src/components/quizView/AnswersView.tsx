@@ -1,6 +1,6 @@
 import {View, TouchableOpacity, Text} from "react-native";
 import {styles} from "./styles";
-import {QuizAnswerType, QuizesEndpoints, useApi} from "src/api";
+import {QuizAnswerType, quizesEndpointsUrls, useApi} from "src/api";
 import {DataFailInfo} from "@components/common";
 
 type AnswersViewProps = {
@@ -17,7 +17,7 @@ export const AnswersView = ({
   const {
     apiData: {data, ApiError: ErrorComponent, Loading},
   } = useApi<QuizAnswerType>(
-    QuizesEndpoints.QUESTION_ANSWERS + questionId,
+    quizesEndpointsUrls.quizesQuestionAnswers(questionId),
     "GET",
   );
 

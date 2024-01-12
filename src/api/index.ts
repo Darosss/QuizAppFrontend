@@ -1,3 +1,3 @@
-export * from "./enum";
-export {useApi} from "./api";
 export type * from "./types";
+export {useApi} from "./api";
+export {authEndpointsUrls, quizesEndpointsUrls} from "./endpoints";
