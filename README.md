@@ -2,6 +2,12 @@
 
 Quiz frontend mobile app
 
+# Linked repositories:
+
+- created backend for this frontend:
+
+  - [Backend](https://github.com/Darosss/QuizAppBackend)
+
 # Getting Started
 
 > **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
