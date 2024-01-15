@@ -12,7 +12,9 @@ export const AppControlButtons = ({onTryAgain}: AppControlButtons) => {
     <View style={styles.errorDisplayButtons}>
       <Button title="Exit" onPress={() => BackHandler.exitApp()} />
 
-      <Button title="Back" onPress={() => navigation.goBack()} />
+      {navigation.canGoBack() ? (
+        <Button title="Back" onPress={() => navigation.goBack()} />
+      ) : null}
       <Button title="Try again" onPress={() => onTryAgain()} />
     </View>
   );
