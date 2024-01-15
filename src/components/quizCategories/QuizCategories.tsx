@@ -9,7 +9,10 @@ export const QuizCategories = ({
 }: Props<"QuizCategories">) => {
   const {
     apiData: {data, Loading, ApiError},
-  } = useApi<QuizCategoriesType[]>(quizesEndpointsUrls.quizes, "GET");
+  } = useApi<QuizCategoriesType[]>({
+    url: quizesEndpointsUrls.quizes,
+    method: "GET",
+  });
 
   if (Loading) return <Loading />;
   if (ApiError) return <ApiError />;

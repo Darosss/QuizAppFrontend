@@ -16,10 +16,10 @@ export const AnswersView = ({
 }: AnswersViewProps) => {
   const {
     apiData: {data, ApiError: ErrorComponent, Loading},
-  } = useApi<QuizAnswerType>(
-    quizesEndpointsUrls.quizesQuestionAnswers(questionId),
-    "GET",
-  );
+  } = useApi<QuizAnswerType>({
+    url: quizesEndpointsUrls.quizesQuestionAnswers(questionId),
+    method: "GET",
+  });
 
   if (Loading) return <Loading />;
   if (ErrorComponent) return <ErrorComponent />;

@@ -16,10 +16,10 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
   } = useQuizContentContext();
   const {
     apiData: {data, ApiError: ErrorComponent, Loading},
-  } = useApi<QuizQuestionType[]>(
-    quizesEndpointsUrls.quizesQuestions(route.params.quizId),
-    "GET",
-  );
+  } = useApi<QuizQuestionType[]>({
+    url: quizesEndpointsUrls.quizesQuestions(route.params.quizId),
+    method: "GET",
+  });
 
   if (Loading) return <Loading />;
   if (ErrorComponent) return <ErrorComponent />;
