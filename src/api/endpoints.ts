@@ -6,6 +6,7 @@ export const authEndpointsUrls = {
   status: BaseEndpoints.AUTH + "status/",
   logout: BaseEndpoints.AUTH + "logout/",
   signup: BaseEndpoints.AUTH + "signup/",
+  profile: BaseEndpoints.AUTH + "profile/",
 };
 
 export const quizesEndpointsUrls = {
