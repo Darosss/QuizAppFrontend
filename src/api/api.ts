@@ -1,16 +1,24 @@
-import axios, {AxiosError} from "axios";
-import {useEffect, useState} from "react";
+import axios from "axios";
+import {useCallback, useEffect, useState} from "react";
 import {ErrorDisplay, Loading} from "src/components/common";
 import {BACKEND_URL} from "@env";
-import {axiosErrorHandler} from "./helpers";
+import {getApiErrorData} from "./helpers";
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: BACKEND_URL,
   timeout: 10020,
   headers: {"Content-Type": "application/json"},
   timeoutErrorMessage:
     "Oops! The request took too long to complete. Please check your internet connection and try again.",
 });
+
+export const setAxiosDefaultHeaderAuthorization = (
+  accessToken: string | null,
+) => {
+  axiosInstance.defaults.headers.common.Authorization = accessToken
+    ? `Bearer ${accessToken}`
+    : null;
+};
 
 type ApiDataType<Response> = {
   data: null | Response;
@@ -22,14 +30,20 @@ type ApiDataType<Response> = {
  * - loadingText - text for display when loading
  * - manual - whether api should be called manually
  */
+
+type UseApiBaseOptions<BodyData> = {
+  url: string;
+  method: "GET" | "POST" | "PATCH" | "DELETE";
+  body?: BodyData;
+};
+
 type UseApiOptionalOptions = {
   loadingText?: string;
   manual?: boolean;
 };
 
-export const useApi = <Response>(
-  url: string,
-  method: "GET" | "POST",
+export const useApi = <Response, BodyData = unknown>(
+  {url, method, body}: UseApiBaseOptions<BodyData>,
   options?: UseApiOptionalOptions,
 ) => {
   const {loadingText = "Loading", manual = false} = options || {};
@@ -37,32 +51,32 @@ export const useApi = <Response>(
   const [apiData, setApiData] = useState<ApiDataType<Response>>({
     data: null,
     ApiError: null,
-    Loading: () => Loading({description: loadingText}),
+    Loading: null,
   });
 
   const fetchData = async (url: string) => {
     try {
-      const response = await axiosInstance<Response>(url, {method});
-      setApiData({data: response.data, ApiError: null, Loading: null});
+      const response = await axiosInstance<Response>(url, {method, data: body});
+      setApiData({
+        data: response.data,
+        ApiError: null,
+        Loading: () => Loading({description: loadingText}),
+      });
     } catch (error) {
-      let errorMessage = "";
-      if (error instanceof AxiosError) {
-        errorMessage = axiosErrorHandler(error);
-      } else if (error instanceof Error) {
-        errorMessage = error.message;
-      } else {
-        errorMessage = "An unkown error occured. Please try again later.";
-      }
+      const {message, statusCode} = getApiErrorData(error);
 
       setApiData({
         data: null,
         ApiError: () =>
           ErrorDisplay({
-            description: errorMessage,
+            description: message,
+            statusCode,
             onTryAgain: () => fetchData(url),
           }),
         Loading: null,
       });
+    } finally {
+      setApiData(prevState => ({...prevState, Loading: null}));
     }
   };
 
@@ -70,5 +84,12 @@ export const useApi = <Response>(
     !manual ? fetchData(url) : null;
   }, [url, manual]);
 
-  return {apiData, fetchData};
+  const refetchData = useCallback(
+    async (customUrl?: string) => {
+      fetchData(customUrl ? customUrl : url);
+    },
+    [fetchData, url],
+  );
+
+  return {apiData, refetchData};
 };

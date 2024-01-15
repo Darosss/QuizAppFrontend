@@ -1,10 +1,41 @@
 import {AxiosError} from "axios";
+import {ApiResponseDataError, GetApiErrorDataReturnType} from "./types";
 
-export const axiosErrorHandler = ({response, message}: AxiosError) => {
-  if (response) {
-    return errorStatusHandler(response.status);
+export const getApiErrorData = (error: unknown) => {
+  const errorData: GetApiErrorDataReturnType = {
+    message: "",
+    statusCode: 500,
+  };
+  if (error instanceof AxiosError) {
+    const {message, statusCode} = axiosErrorHandler(error);
+    errorData.message = message;
+    errorData.statusCode = statusCode;
+  } else if (error instanceof Error) {
+    errorData.message = error.message;
   } else {
-    return message;
+    errorData.message = "An unkown error occured. Please try again later.";
+  }
+
+  return errorData;
+};
+
+export const axiosErrorHandler = ({
+  response,
+  message,
+}: AxiosError<ApiResponseDataError>): GetApiErrorDataReturnType => {
+  if (response) {
+    if (response.data?.message) {
+      return {
+        message: response.data.message,
+        statusCode: response.data.statusCode,
+      };
+    }
+    return {
+      message: errorStatusHandler(response.status),
+      statusCode: response.status,
+    };
+  } else {
+    return {message, statusCode: 500};
   }
 };
 
