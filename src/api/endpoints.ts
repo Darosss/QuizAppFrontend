@@ -2,7 +2,8 @@ import {BaseEndpoints} from "./enum";
 
 export const authEndpointsUrls = {
   auth: "auth/",
-  login: BaseEndpoints + "login/",
+  login: BaseEndpoints.AUTH + "login/",
+  status: BaseEndpoints.AUTH + "status/",
   logout: BaseEndpoints.AUTH + "logout/",
   signup: BaseEndpoints.AUTH + "signup/",
 };
