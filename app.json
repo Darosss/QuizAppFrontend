@@ -1,4 +1,9 @@
 {
   "name": "QuizAppFrontend",
-  "displayName": "QuizAppFrontend"
+  "displayName": "QuizAppFrontend",
+  "plugins": ["expo-secure-store"],
+  "expo": {
+    "name": "QuizAppFrontend",
+    "slug": "quiz-app-frontend"
+  }
 }

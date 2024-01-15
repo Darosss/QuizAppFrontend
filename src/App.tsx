@@ -6,7 +6,11 @@ import {RootStackParamList} from "./types";
 import {HomeScreen} from "./components/home";
 import {ProfileScreen} from "./components/profile";
 import {QuizCategories} from "./components/quizCategories";
-import {LoginScreen} from "./components/auth";
+import {
+  AuthContextProvider,
+  LoginScreen,
+  useAuthContext,
+} from "./components/auth";
 import {useGetTheme} from "./hooks";
 import {QuizView} from "./components/quizView";
 
@@ -17,14 +21,28 @@ const App = (): React.JSX.Element => {
 
   return (
     <NavigationContainer theme={theme}>
-      <RootStack.Navigator initialRouteName="Home">
-        <RootStack.Screen name="Home" component={HomeScreen} />
-        <RootStack.Screen name="Profile" component={ProfileScreen} />
-        <RootStack.Screen name="Login" component={LoginScreen} />
-        <RootStack.Screen name="QuizCategories" component={QuizCategories} />
-        <RootStack.Screen name="Quizes" component={QuizView} />
-      </RootStack.Navigator>
+      <AuthContextProvider>
+        <NavigationContent />
+      </AuthContextProvider>
     </NavigationContainer>
+  );
+};
+
+const NavigationContent = () => {
+  const {state} = useAuthContext();
+  return (
+    <RootStack.Navigator initialRouteName="Home">
+      <RootStack.Screen name="Home" component={HomeScreen} />
+      {state.userToken == null ? (
+        <RootStack.Screen name="Login" component={LoginScreen} />
+      ) : (
+        <>
+          <RootStack.Screen name="Profile" component={ProfileScreen} />
+          <RootStack.Screen name="QuizCategories" component={QuizCategories} />
+          <RootStack.Screen name="Quizes" component={QuizView} />
+        </>
+      )}
+    </RootStack.Navigator>
   );
 };
 

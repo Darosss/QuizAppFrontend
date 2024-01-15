@@ -1,20 +1,36 @@
-import {Button} from "react-native";
+import {Button, Text} from "react-native";
 import {Props} from "src/types";
-import {LogoutButton} from "@components/auth";
+import {LogoutButton, useAuthContext} from "@components/auth";
 
 export const HomeScreen = ({navigation}: Props) => {
+  const {
+    state: {userInfo, isSignout},
+  } = useAuthContext();
+
   return (
     <>
-      <Button
-        title="My profile"
-        onPress={() => navigation.navigate("Profile")}
-      />
-      <Button title="Login" onPress={() => navigation.navigate("Login")} />
-      <Button
-        title="Quizes"
-        onPress={() => navigation.navigate("QuizCategories")}
-      />
-      <LogoutButton />
+      {userInfo ? (
+        <Button title={`Logged in as: ${userInfo.user.username}`} />
+      ) : null}
+
+      {isSignout ? (
+        <>
+          <Button title="Login" onPress={() => navigation.navigate("Login")} />
+        </>
+      ) : (
+        <>
+          <Button
+            title="My profile"
+            onPress={() => navigation.navigate("Profile")}
+          />
+
+          <Button
+            title="Quizes"
+            onPress={() => navigation.navigate("QuizCategories")}
+          />
+          <LogoutButton />
+        </>
+      )}
     </>
   );
 };

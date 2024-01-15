@@ -43,3 +43,7 @@ export enum UserRolesType {
   ADMIN = "admin",
   SUPER_ADMIN = "super_admin",
 }
+
+export type LoginApiCallResponseType = {
+  accessToken: string;
+};
