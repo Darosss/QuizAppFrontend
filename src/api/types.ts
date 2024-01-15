@@ -33,9 +33,15 @@ export type GetApiErrorDataReturnType = {
   statusCode: number;
 };
 
+export type ProfileType = {
+  sub: string;
+  username: string;
+  roles: UserRolesType[];
+};
+
 export type GetAuthStatusType = {
   authenticated: boolean;
-  user: {sub: string; username: string; roles: UserRolesType};
+  user: ProfileType;
 };
 
 export enum UserRolesType {
