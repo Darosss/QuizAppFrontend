@@ -53,3 +53,14 @@ export enum UserRolesType {
 export type LoginApiCallResponseType = {
   accessToken: string;
 };
+
+export type QuizCanStartResponseType = {
+  canStart: boolean;
+  remainingTimeMS?: number;
+};
+
+export type QuizSubmissionScoreResponseType = {
+  completedAt: string;
+  correctAnswers: number;
+  totalAnswers: number;
+};

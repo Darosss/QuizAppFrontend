@@ -1,6 +1,11 @@
 import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
+  quizViewQuizName: {
+    fontSize: 18,
+    textAlign: "center",
+    paddingVertical: 5,
+  },
   quizContentWrapper: {
     flex: 1,
     display: "flex",

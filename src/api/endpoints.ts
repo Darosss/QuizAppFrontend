@@ -18,4 +18,10 @@ export const quizesEndpointsUrls = {
     BaseEndpoints.QUESTIONS +
     `${questionId}/` +
     BaseEndpoints.ANSWERS,
+  canStartQuiz: (quizId: string) =>
+    BaseEndpoints.QUIZES + `${quizId}/can-start`,
+
+  submissions: BaseEndpoints.QUIZES + BaseEndpoints.SUBMISSIONS,
+  submissionsSubmit: (quizId: string) =>
+    BaseEndpoints.QUIZES + BaseEndpoints.SUBMISSIONS + `${quizId}/submit`,
 };

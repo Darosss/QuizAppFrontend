@@ -3,5 +3,6 @@ export enum BaseEndpoints {
   QUIZES = "quizes/",
   QUESTIONS = "questions/",
   ANSWERS = "answers/",
+  SUBMISSIONS = "submissions/",
   AUTH = "auth/",
 }

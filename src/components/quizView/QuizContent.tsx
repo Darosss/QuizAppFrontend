@@ -56,7 +56,7 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
         {currentQuestionData ? (
           <View style={styles.questionTextWrapper}>
             {data.length === answeredQuestions.size ? (
-              <SubmitQuizButton />
+              <SubmitQuizButton quizId={route.params.quizId} />
             ) : null}
             <Text style={styles.questionText}>{currentQuestionData.name}</Text>
           </View>

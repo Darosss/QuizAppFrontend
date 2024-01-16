@@ -33,7 +33,7 @@ type ApiDataType<Response> = {
 
 type UseApiBaseOptions<BodyData> = {
   url: string;
-  method: "GET" | "POST" | "PATCH" | "DELETE";
+  method: "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
   body?: BodyData;
 };
 
