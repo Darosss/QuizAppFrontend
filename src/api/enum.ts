@@ -6,3 +6,9 @@ export enum BaseEndpoints {
   SUBMISSIONS = "submissions/",
   AUTH = "auth/",
 }
+
+export enum UserRolesType {
+  USER = "user",
+  ADMIN = "admin",
+  SUPER_ADMIN = "super_admin",
+}

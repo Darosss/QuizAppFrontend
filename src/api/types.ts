@@ -1,3 +1,5 @@
+import {UserRolesType} from "./enum";
+
 type BaseApiData = {
   _id: string;
   createdAt: Date;
@@ -43,12 +45,6 @@ export type GetAuthStatusType = {
   authenticated: boolean;
   user: ProfileType;
 };
-
-export enum UserRolesType {
-  USER = "user",
-  ADMIN = "admin",
-  SUPER_ADMIN = "super_admin",
-}
 
 export type LoginApiCallResponseType = {
   accessToken: string;
