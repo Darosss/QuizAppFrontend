@@ -7,6 +7,7 @@ import {NoQuizQuestions} from "./NoQuizQuestions";
 import {useQuizContentContext} from "./QuizContentContext";
 import {QuizControls} from "./QuizControls";
 import {AnswersView} from "./AnswersView";
+import {useSwipe} from "src/hooks";
 
 export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
   const {
@@ -21,6 +22,12 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
     method: "GET",
   });
 
+  const {onTouchStart, onTouchEnd} = useSwipe(
+    () => handleOnQuestionNavigate(1),
+    () => handleOnQuestionNavigate(-1),
+    6,
+  );
+
   if (Loading) return <Loading />;
   if (ErrorComponent) return <ErrorComponent />;
   if (!data) return <NoQuizQuestions />;
@@ -28,7 +35,11 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
   const currentQuestionData = data.at(currentQuestion);
   const questionsCount = data.length;
   const handleOnQuestionNavigate = (direction: -1 | 1) => {
-    if (direction === 1 && currentQuestion < questionsCount - 1) {
+    if (
+      direction === 1 &&
+      currentQuestion < answeredQuestions.size &&
+      currentQuestion < questionsCount - 1
+    ) {
       setCurrentQuestion(prevState => prevState + 1);
     } else if (direction === -1 && currentQuestion > 0) {
       setCurrentQuestion(prevState => prevState - 1);
@@ -45,7 +56,10 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
   };
 
   return (
-    <View style={styles.quizContentWrapper}>
+    <View
+      style={styles.quizContentWrapper}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}>
       <View style={styles.quizHeader}>
         <Text style={styles.quizHeaderName}> {route.params.quizName}</Text>
         <QuizControls
