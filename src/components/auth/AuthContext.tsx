@@ -138,6 +138,7 @@ function reducer(
         ...state,
         isSignout: true,
         userToken: null,
+        userInfo: null,
       };
 
     case "SET_USER_INFO": {
