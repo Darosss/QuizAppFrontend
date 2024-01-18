@@ -8,6 +8,7 @@ import {useQuizContentContext} from "./QuizContentContext";
 import {QuizControls} from "./QuizControls";
 import {AnswersView} from "./AnswersView";
 import {useSwipe} from "src/hooks";
+import {useEffect} from "react";
 
 export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
   const {
@@ -27,6 +28,12 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
     () => handleOnQuestionNavigate(-1),
     6,
   );
+
+  useEffect(() => {
+    if (!autoNextQuestion || answeredQuestions.size <= 0) return;
+
+    handleOnQuestionNavigate(1);
+  }, [autoNextQuestion, answeredQuestions.size]);
 
   if (Loading) return <Loading />;
   if (ErrorComponent) return <ErrorComponent />;
@@ -52,7 +59,6 @@ export const QuizContent = ({navigation, route}: Props<"Quizes">) => {
       newMap.set(questionId, answerId);
       return newMap;
     });
-    autoNextQuestion ? handleOnQuestionNavigate(1) : null;
   };
 
   return (
