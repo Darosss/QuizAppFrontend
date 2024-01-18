@@ -30,7 +30,7 @@ export const QuizControls = ({
         <SwitchButtonWithText
           text="Auto text"
           isEnabled={autoNextQuestion}
-          toggleEnabled={() => setAutoNextQuestion(prevState => !prevState)}
+          toggleEnabled={() => setAutoNextQuestion(!autoNextQuestion)}
         />
       </View>
       <View style={styles.quizHeaderCurrentQuestion}>

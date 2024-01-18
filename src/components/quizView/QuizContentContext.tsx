@@ -1,10 +1,8 @@
 import React, {useContext, useState} from "react";
+import {useLocalStorage} from "src/hooks";
 
 export type QuizContentContextType = {
-  autoNextQuestionState: [
-    boolean,
-    React.Dispatch<React.SetStateAction<boolean>>,
-  ];
+  autoNextQuestionState: [boolean | null, (data: boolean) => Promise<boolean>];
   currentQuestionState: [number, React.Dispatch<React.SetStateAction<number>>];
   answeredQuestionsState: [
     Map<string, string>,
@@ -20,7 +18,10 @@ export const QuizContentContextProvider = ({
 }: {
   children: React.ReactNode;
 }): React.JSX.Element => {
-  const [autoNextQuestion, setAutoNextQuestion] = useState(false);
+  const [autoNextQuestion, setAutoNextQuestion] = useLocalStorage(
+    "autoNextQuestion",
+    false,
+  );
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState(
     new Map<string, string>(),

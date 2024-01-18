@@ -2,7 +2,7 @@ import {Switch, Text, View} from "react-native";
 import {styles} from "./styles";
 
 type SwitchButtonWithTextProps = {
-  isEnabled: boolean;
+  isEnabled: boolean | null;
   toggleEnabled: () => void;
   text: string;
 };
@@ -15,7 +15,7 @@ export const SwitchButtonWithText = ({
   return (
     <View style={styles.switchNextQuestionWrapper}>
       <Text>{text}</Text>
-      <Switch onValueChange={toggleEnabled} value={isEnabled} />
+      <Switch onValueChange={toggleEnabled} value={isEnabled || false} />
     </View>
   );
 };
