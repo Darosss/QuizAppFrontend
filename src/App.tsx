@@ -13,6 +13,7 @@ import {
 } from "./components/auth";
 import {useGetTheme} from "./hooks";
 import {QuizView} from "./components/quizView";
+import {AdminScreen} from "./components/admin";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,14 +30,20 @@ const App = (): React.JSX.Element => {
 };
 
 const NavigationContent = () => {
-  const {state} = useAuthContext();
+  const {
+    state: {userToken},
+    isAdmin,
+  } = useAuthContext();
   return (
     <RootStack.Navigator initialRouteName="Home">
       <RootStack.Screen name="Home" component={HomeScreen} />
-      {state.userToken == null ? (
+      {userToken == null ? (
         <RootStack.Screen name="Login" component={LoginScreen} />
       ) : (
         <>
+          {isAdmin ? (
+            <RootStack.Screen name="Admin" component={AdminScreen} />
+          ) : null}
           <RootStack.Screen name="Profile" component={ProfileScreen} />
           <RootStack.Screen name="QuizCategories" component={QuizCategories} />
           <RootStack.Screen name="Quizes" component={QuizView} />
