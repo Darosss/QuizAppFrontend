@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useReducer,
+  useState,
 } from "react";
 import * as SecureStore from "expo-secure-store";
 import {
@@ -11,6 +12,7 @@ import {
   authEndpointsUrls,
   axiosInstance,
   setAxiosDefaultHeaderAuthorization,
+  UserRolesType,
 } from "src/api";
 
 import {
@@ -37,6 +39,7 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }): React.JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialAuthContextState);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const callAnAuthStatusApi = useCallback(
     async (userToken: AuthContextStateType["userToken"]) =>
@@ -101,8 +104,18 @@ export const AuthContextProvider = ({
     [],
   );
 
+  useEffect(() => {
+    if (!state.userInfo) return;
+    setIsAdmin(
+      state.userInfo.user.roles.some(
+        role =>
+          role === UserRolesType.ADMIN || role === UserRolesType.SUPER_ADMIN,
+      ),
+    );
+  }, [state.userInfo]);
+
   return (
-    <AuthContext.Provider value={{state, actions: actions}}>
+    <AuthContext.Provider value={{state, actions, isAdmin}}>
       {children}
     </AuthContext.Provider>
   );

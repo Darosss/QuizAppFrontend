@@ -3,6 +3,7 @@ import {GetAuthStatusType} from "src/api";
 export type AuthContextType = {
   state: AuthContextStateType;
   actions: AuthContextActionsType;
+  isAdmin: boolean;
 };
 
 export type LoginData = {
