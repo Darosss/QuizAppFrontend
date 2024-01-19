@@ -11,13 +11,26 @@ export const authEndpointsUrls = {
 
 export const quizesEndpointsUrls = {
   quizes: BaseEndpoints.QUIZES,
+  quizById: (quizId: string) => BaseEndpoints.QUIZES + quizId,
   quizesQuestions: (quizId: string) =>
     BaseEndpoints.QUIZES + `${quizId}/` + BaseEndpoints.QUESTIONS,
+  questions: BaseEndpoints.QUIZES + BaseEndpoints.QUESTIONS,
+  quizQuestionById: (questionId: string) =>
+    BaseEndpoints.QUIZES + BaseEndpoints.QUESTIONS + questionId,
   quizesQuestionAnswers: (questionId: string) =>
     BaseEndpoints.QUIZES +
     BaseEndpoints.QUESTIONS +
     `${questionId}/` +
     BaseEndpoints.ANSWERS,
+  answers: BaseEndpoints.QUIZES + BaseEndpoints.ANSWERS,
+  quizesAnswerById: (answerId: string) =>
+    BaseEndpoints.QUIZES + BaseEndpoints.ANSWERS + answerId,
+  quizesQuestionAnswersManage: (questionId: string) =>
+    BaseEndpoints.QUIZES +
+    BaseEndpoints.QUESTIONS +
+    `${questionId}/` +
+    BaseEndpoints.ANSWERS +
+    "manage",
   canStartQuiz: (quizId: string) =>
     BaseEndpoints.QUIZES + `${quizId}/can-start`,
 
