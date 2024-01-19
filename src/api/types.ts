@@ -15,11 +15,21 @@ export type QuizQuestionType = BaseApiData & {
   name: string;
 };
 
-export type QuizAnswerType = BaseApiData & {
-  questionId: string;
-  answers: {name: string; isCorrect: boolean; id: string}[];
+export type QuizAnswersListType = {
+  name: string;
+  id: string;
+};
+
+export type QuizAnswersListManageType = {
   name: string;
   isCorrect: boolean;
+  id: string;
+};
+
+export type QuizAnswerType<AnswersType = QuizAnswersListType> = BaseApiData & {
+  questionId: string;
+  answers: AnswersType[];
+  name: string;
 };
 
 export type ApiResponseDataError = {
