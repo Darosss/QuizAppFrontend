@@ -1,6 +1,7 @@
-import {View, Button, BackHandler} from "react-native";
+import {View, BackHandler} from "react-native";
 import {styles} from "./styles";
 import {useNavigation} from "@react-navigation/native";
+import {CustomButton} from ".";
 
 type AppControlButtons = {
   onTryAgain: () => void;
@@ -10,12 +11,20 @@ export const AppControlButtons = ({onTryAgain}: AppControlButtons) => {
   const navigation = useNavigation();
   return (
     <View style={styles.errorDisplayButtons}>
-      <Button title="Exit" onPress={() => BackHandler.exitApp()} />
+      <CustomButton
+        bgColor={"red"}
+        title="Exit"
+        onPress={() => BackHandler.exitApp()}
+      />
 
       {navigation.canGoBack() ? (
-        <Button title="Back" onPress={() => navigation.goBack()} />
+        <CustomButton
+          bgColor={"darkgoldenrod"}
+          title="Back"
+          onPress={() => navigation.goBack()}
+        />
       ) : null}
-      <Button title="Try again" onPress={() => onTryAgain()} />
+      <CustomButton title="Try again" onPress={() => onTryAgain()} />
     </View>
   );
 };

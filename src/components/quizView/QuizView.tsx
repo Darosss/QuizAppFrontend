@@ -3,9 +3,10 @@ import {QuizContentContextProvider} from "./QuizContentContext";
 import {QuizContent} from "./QuizContent";
 import {QuizCanStartResponseType, quizesEndpointsUrls, useApi} from "src/api";
 import {useEffect, useRef, useState} from "react";
-import {Button, Text} from "react-native";
+import {Text} from "react-native";
 import {formatTime} from "src/helpers";
 import {styles} from "./styles";
+import {CustomButton} from "../common";
 
 export const QuizView = ({navigation, route}: Props<"Quizes">) => {
   const {
@@ -54,7 +55,7 @@ export const QuizView = ({navigation, route}: Props<"Quizes">) => {
       ) : (
         <>
           <Text style={styles.quizViewQuizName}>{route.params.quizName}</Text>
-          <Button
+          <CustomButton
             title={`Start ${
               remainingTime > 0 ? formatTime(remainingTime) : ""
             }`}

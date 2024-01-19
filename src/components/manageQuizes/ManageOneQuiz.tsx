@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
-import {Button, Text, TextInput, View} from "react-native";
+import {Text, TextInput, View} from "react-native";
 import {QuizCategoriesType, quizesEndpointsUrls, useApi} from "src/api";
 import {PropsAdminStack} from "src/types";
 import {styles} from "./styles";
+import {CustomButton} from "../common";
 
 export const ManageOneQuiz = ({
   navigation,
@@ -27,7 +28,7 @@ export const ManageOneQuiz = ({
         quizName={data.name}
         onCancel={refetchData}
       />
-      <Button
+      <CustomButton
         title="Manage questions"
         onPress={() =>
           navigation.navigate("ManageQuizQuestions", {
@@ -88,7 +89,7 @@ const EditQuizDetails = ({
       {!isEditing ? (
         <>
           <Text>{name}</Text>
-          <Button title="Edit" onPress={() => setIsEditing(!isEditing)} />
+          <CustomButton title="Edit" onPress={() => setIsEditing(!isEditing)} />
         </>
       ) : (
         <>
@@ -97,8 +98,12 @@ const EditQuizDetails = ({
             value={name}
             onChangeText={setName}
           />
-          <Button title="Cancel" onPress={handleOnCancelEdit} />
-          <Button title="Save" onPress={handleOnSave} />
+          <CustomButton
+            bgColor={"red"}
+            title="Cancel"
+            onPress={handleOnCancelEdit}
+          />
+          <CustomButton title="Save" onPress={handleOnSave} />
         </>
       )}
     </View>

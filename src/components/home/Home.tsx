@@ -1,6 +1,6 @@
-import {Button} from "react-native";
 import {Props} from "src/types";
 import {LogoutButton, useAuthContext} from "@components/auth";
+import {CustomButton} from "../common";
 
 export const HomeScreen = ({navigation}: Props) => {
   const {
@@ -12,9 +12,12 @@ export const HomeScreen = ({navigation}: Props) => {
     <>
       {userInfo ? (
         <>
-          <Button title={`Logged in as: ${userInfo.user.username}`} />
+          <CustomButton
+            bgColor={"darkgoldenrod"}
+            title={`Logged in as: ${userInfo.user.username}`}
+          />
           {isAdmin ? (
-            <Button
+            <CustomButton
               title="Admin menu"
               onPress={() => navigation.navigate("Admin")}
             />
@@ -24,16 +27,19 @@ export const HomeScreen = ({navigation}: Props) => {
 
       {isSignout ? (
         <>
-          <Button title="Login" onPress={() => navigation.navigate("Login")} />
+          <CustomButton
+            title="Login"
+            onPress={() => navigation.navigate("Login")}
+          />
         </>
       ) : (
         <>
-          <Button
+          <CustomButton
             title="My profile"
             onPress={() => navigation.navigate("Profile")}
           />
 
-          <Button
+          <CustomButton
             title="Quizes"
             onPress={() => navigation.navigate("QuizCategories")}
           />

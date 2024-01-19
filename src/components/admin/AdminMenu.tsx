@@ -1,16 +1,17 @@
 import {useNavigation} from "@react-navigation/native";
-import {Button, View} from "react-native";
+import {View} from "react-native";
 import {PropsAdminStackNavigation} from "src/types";
+import {CustomButton} from "../common";
 
 export const AdminMenu = () => {
   const navigation = useNavigation<PropsAdminStackNavigation>();
   return (
     <View>
-      <Button
+      <CustomButton
         title="Manage quizes"
         onPress={() => navigation.navigate("ManageQuizes")}
       />
-      <Button
+      <CustomButton
         title="Manage users"
         onPress={() => navigation.navigate("ManageUsers")}
       />

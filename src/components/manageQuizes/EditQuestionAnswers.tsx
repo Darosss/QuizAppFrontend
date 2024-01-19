@@ -1,26 +1,27 @@
 import React, {useState, useEffect} from "react";
-import {View, FlatList, Text, Button, TextInput, Switch} from "react-native";
+import {View, FlatList, Text, TextInput, Switch} from "react-native";
 import {
   QuizAnswerType,
   useApi,
   quizesEndpointsUrls,
-  QuizAnswersListType,
+  QuizAnswersListManageType,
 } from "src/api";
 import {styles} from "./styles";
 import {AddAnswersToQuestionButton} from "./AddAnswersToQuestionButton";
+import {CustomButton} from "../common";
 
 type EditQuestionAnswersProps = {
   questionId: string;
 };
 export const EditQuestionAnswers = ({questionId}: EditQuestionAnswersProps) => {
-  const [answers, setAnswers] = useState<Omit<QuizAnswerType["answers"], "id">>(
-    [],
-  );
+  const [answers, setAnswers] = useState<
+    Omit<QuizAnswerType<QuizAnswersListManageType>["answers"], "id">
+  >([]);
 
   const {
     apiData: {data, Loading, ApiError},
     refetchData,
-  } = useApi<QuizAnswerType>({
+  } = useApi<QuizAnswerType<QuizAnswersListManageType>>({
     url: quizesEndpointsUrls.quizesQuestionAnswersManage(questionId),
     method: "GET",
   });
@@ -28,7 +29,7 @@ export const EditQuestionAnswers = ({questionId}: EditQuestionAnswersProps) => {
   const {
     apiData: {data: patchData, ApiError: PatchError},
     refetchData: updateAnswer,
-  } = useApi<QuizAnswerType>(
+  } = useApi<QuizAnswerType<QuizAnswersListManageType>>(
     {
       url: quizesEndpointsUrls.quizesAnswerById(data?._id || ""),
       method: "PATCH",
@@ -110,7 +111,7 @@ export const EditQuestionAnswers = ({questionId}: EditQuestionAnswersProps) => {
 };
 
 type EditQuestionAnswerDataProps = {
-  data: QuizAnswersListType;
+  data: QuizAnswersListManageType;
   onPressX: () => void;
   onChangeName: (value: string) => void;
   onChangeIsCorrect: () => void;
@@ -130,7 +131,7 @@ const EditQuestionAnswerData = ({
         <Text>
           {index + 1 + ". "} {data.isCorrect}
         </Text>
-        <Button title="X" onPress={onPressX} />
+        <CustomButton bgColor={"red"} title="X" onPress={onPressX} />
       </View>
       <TextInput
         placeholder="Name"
@@ -163,8 +164,8 @@ const ListFooterComponent = ({
 }: ListFooterComponentProps) => {
   return (
     <View>
-      <Button title="Add more answers" onPress={onAddMoreAnswers} />
-      <Button title="Save" onPress={onSave} />
+      <CustomButton title="Add more answers" onPress={onAddMoreAnswers} />
+      <CustomButton title="Save" onPress={onSave} />
     </View>
   );
 };

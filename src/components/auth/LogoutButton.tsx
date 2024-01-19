@@ -1,5 +1,5 @@
-import {Button} from "react-native";
 import {useAuthContext} from "./AuthContext";
+import {CustomButton} from "../common";
 
 export const LogoutButton = () => {
   const {
@@ -7,7 +7,7 @@ export const LogoutButton = () => {
   } = useAuthContext();
   return (
     <>
-      <Button title="Logout" onPress={() => logout()} />
+      <CustomButton title="Logout" bgColor={"red"} onPress={() => logout()} />
     </>
   );
 };

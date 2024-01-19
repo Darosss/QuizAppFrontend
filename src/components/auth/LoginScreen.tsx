@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Button, TextInput, View} from "react-native";
+import {TextInput, View} from "react-native";
 import {Props} from "src/types";
 import {useAuthContext} from "./AuthContext";
 import {
@@ -7,6 +7,7 @@ import {
   authEndpointsUrls,
   useApi,
 } from "src/api";
+import {CustomButton} from "../common";
 
 export const LoginScreen = ({navigation, route}: Props<"Login">) => {
   const [username, setUsername] = useState("");
@@ -52,7 +53,7 @@ export const LoginScreen = ({navigation, route}: Props<"Login">) => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button title="Sign in" onPress={() => refetchData()} />
+        <CustomButton title="Sign in" onPress={() => refetchData()} />
       </View>
       {ApiError ? <ApiError /> : null}
     </>

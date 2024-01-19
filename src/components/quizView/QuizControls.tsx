@@ -1,7 +1,7 @@
-import {View, Button, Text} from "react-native";
+import {View, Text} from "react-native";
 import {useQuizContentContext} from "./QuizContentContext";
 import {styles} from "./styles";
-import {SwitchButtonWithText} from "@components/common";
+import {CustomButton, SwitchButtonWithText} from "@components/common";
 
 type QuizControlsProps = {
   onPressPrevious: () => void;
@@ -34,7 +34,7 @@ export const QuizControls = ({
         />
       </View>
       <View style={styles.quizHeaderCurrentQuestion}>
-        <Button
+        <CustomButton
           {...(currentQuestion === 0 && {
             disabled: true,
           })}
@@ -44,7 +44,7 @@ export const QuizControls = ({
         <Text>
           {currentQuestion + 1} / {questionsCount}
         </Text>
-        <Button
+        <CustomButton
           {...(nextQuestionDisabled && {
             disabled: true,
           })}

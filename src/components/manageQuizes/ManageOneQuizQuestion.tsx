@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, Button, TextInput} from "react-native";
+import {View, Text, TextInput} from "react-native";
 import {useApi, quizesEndpointsUrls, QuizQuestionType} from "src/api";
 import {PropsAdminStack} from "src/types";
 import {EditQuestionAnswers} from "./EditQuestionAnswers";
 import {styles} from "./styles";
+import {CustomButton} from "../common";
 
 export const ManageOneQuizQuestion = ({
   navigation,
@@ -82,7 +83,7 @@ const EditQuestion = ({
       {!isEditing ? (
         <>
           <Text style={styles.editQuestionText}>{name}</Text>
-          <Button title="Edit" onPress={() => setIsEditing(!isEditing)} />
+          <CustomButton title="Edit" onPress={() => setIsEditing(!isEditing)} />
         </>
       ) : (
         <>
@@ -91,8 +92,12 @@ const EditQuestion = ({
             value={name}
             onChangeText={setName}
           />
-          <Button title="Cancel" onPress={handleOnCancelEdit} />
-          <Button title="Save" onPress={handleOnSave} />
+          <CustomButton
+            bgColor={"red"}
+            title="Cancel"
+            onPress={handleOnCancelEdit}
+          />
+          <CustomButton title="Save" onPress={handleOnSave} />
         </>
       )}
     </View>

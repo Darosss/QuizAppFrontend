@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {Alert, Button} from "react-native";
+import {Alert} from "react-native";
 import {
   QuizSubmissionScoreResponseType,
   quizesEndpointsUrls,
@@ -7,6 +7,7 @@ import {
 } from "src/api";
 import {useQuizContentContext} from "./QuizContentContext";
 import {calculatePercentage} from "src/helpers";
+import {CustomButton} from "../common";
 
 type SubmitQuizButtonProps = {
   quizId: string;
@@ -39,7 +40,7 @@ export const SubmitQuizButton = ({quizId}: SubmitQuizButtonProps) => {
 
   return (
     <>
-      <Button
+      <CustomButton
         title="Submit"
         onPress={() => {
           ConfirmSubmitAlert({

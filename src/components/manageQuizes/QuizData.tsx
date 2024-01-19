@@ -1,7 +1,7 @@
 import {useNavigation} from "@react-navigation/native";
-import {Button, Text} from "react-native";
 import {QuizCategoriesType} from "src/api";
-import {PropsAdminStackNavigation, PropsNavigation} from "src/types";
+import {PropsAdminStackNavigation} from "src/types";
+import {CustomButton} from "../common";
 
 type QuizDataProps = {
   data: QuizCategoriesType;
@@ -9,13 +9,10 @@ type QuizDataProps = {
 export const QuizData = ({data}: QuizDataProps) => {
   const navigation = useNavigation<PropsAdminStackNavigation>();
   return (
-    <Button
+    <CustomButton
       title={data.name}
       onPress={() => {
-        navigation.navigate("ManageOneQuiz", {
-          quizId: data._id,
-          quizName: data.name,
-        });
+        navigation.navigate("ManageOneQuiz", {quizId: data._id});
       }}
     />
   );

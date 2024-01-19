@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {Button} from "react-native";
 import {quizesEndpointsUrls, useApi} from "src/api";
+import {CustomButton} from "../common";
 
 type AddNewQuestionButtonProps = {
   quizId: string;
@@ -32,7 +33,7 @@ export const AddNewQuestionButton = ({
 
   if (ApiError) return <ApiError />;
 
-  return <Button title="Add new" onPress={() => refetchData()} />;
+  return <CustomButton title="Add new" onPress={() => refetchData()} />;
 };
 
 type RemoveQuestionButtonProps = {
@@ -61,5 +62,7 @@ export const RemoveQuestionButton = ({
 
   if (ApiError) return <ApiError />;
 
-  return <Button title="X" onPress={() => refetchData()} />;
+  return (
+    <CustomButton bgColor={"red"} title="X" onPress={() => refetchData()} />
+  );
 };

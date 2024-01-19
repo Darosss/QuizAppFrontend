@@ -1,6 +1,6 @@
 import {useEffect} from "react";
-import {Button} from "react-native";
 import {quizesEndpointsUrls, useApi} from "src/api";
+import {CustomButton} from "../common";
 
 type AddAnswersToQuestionButtonProps = {questionId: string; onAdd: () => void};
 
@@ -32,5 +32,7 @@ export const AddAnswersToQuestionButton = ({
 
   if (ApiError) return <ApiError />;
 
-  return <Button title="Add initial answers" onPress={() => refetchData()} />;
+  return (
+    <CustomButton title="Add initial answers" onPress={() => refetchData()} />
+  );
 };
