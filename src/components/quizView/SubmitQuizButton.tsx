@@ -8,6 +8,8 @@ import {
 import {useQuizContentContext} from "./QuizContentContext";
 import {calculatePercentage} from "src/helpers";
 import {CustomButton} from "../common";
+import {PropsNavigation} from "src/types";
+import {useNavigation} from "@react-navigation/native";
 
 type SubmitQuizButtonProps = {
   quizId: string;
@@ -17,6 +19,7 @@ export const SubmitQuizButton = ({quizId}: SubmitQuizButtonProps) => {
   const {
     answeredQuestionsState: [answeredQuestions],
   } = useQuizContentContext();
+  const navigation = useNavigation<PropsNavigation>();
 
   const {
     apiData: {data, ApiError, Loading},
@@ -44,7 +47,12 @@ export const SubmitQuizButton = ({quizId}: SubmitQuizButtonProps) => {
         title="Submit"
         onPress={() => {
           ConfirmSubmitAlert({
-            onOk: refetchData,
+            onOk: () =>
+              refetchData().then(() =>
+                navigation.canGoBack()
+                  ? navigation.goBack()
+                  : navigation.navigate("Home"),
+              ),
           });
         }}
       />
