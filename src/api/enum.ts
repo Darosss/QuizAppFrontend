@@ -5,6 +5,7 @@ export enum BaseEndpoints {
   ANSWERS = "answers/",
   SUBMISSIONS = "submissions/",
   AUTH = "auth/",
+  USERS = "users/",
 }
 
 export enum UserRolesType {

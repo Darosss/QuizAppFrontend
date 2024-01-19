@@ -7,9 +7,6 @@ export type RootStackParamList = {
   Quizes: {quizId: string; quizName: string};
   QuizCategories: undefined;
   Admin: undefined;
-  ManageQuizes: undefined;
-
-  ManageUsers: undefined;
 };
 export type Props<T extends keyof RootStackParamList = "Home"> =
   NativeStackScreenProps<RootStackParamList, T>;
@@ -24,6 +21,7 @@ export type AdminStackParamList = {
   ManageQuizQuestions: {quizId: string; quizName: string};
   ManageOneQuizQuestion: {questionId: string; questionName: string};
   ManageUsers: undefined;
+  ManageOneUser: {userId: string};
 };
 
 export type PropsAdminStack<T extends keyof AdminStackParamList = "AdminMenu"> =

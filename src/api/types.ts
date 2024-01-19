@@ -70,3 +70,8 @@ export type QuizSubmissionScoreResponseType = {
   correctAnswers: number;
   totalAnswers: number;
 };
+
+export type UserType = BaseApiData & {
+  roles: UserRolesType[];
+  username: string;
+};

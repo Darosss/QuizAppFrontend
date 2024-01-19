@@ -7,10 +7,12 @@ import {
   ManageQuizQuestions,
 } from "../manageQuizes";
 import {AdminMenu} from "./AdminMenu";
-import {ManageUsers} from "../manageUsers";
+import {ManageOneUser, ManageUsers} from "../manageUsers";
+import {useAuthContext} from "../auth";
 
 const AdminStack = createNativeStackNavigator<AdminStackParamList>();
 export const AdminScreen = ({navigation, route}: Props<"Admin">) => {
+  const {isAdmin} = useAuthContext();
   return (
     <AdminStack.Navigator initialRouteName="AdminMenu">
       <AdminStack.Screen
@@ -30,7 +32,12 @@ export const AdminScreen = ({navigation, route}: Props<"Admin">) => {
         name="ManageOneQuizQuestion"
         component={ManageOneQuizQuestion}
       />
-      <AdminStack.Screen name="ManageUsers" component={ManageUsers} />
+      {isAdmin && isAdmin.superAdmin ? (
+        <>
+          <AdminStack.Screen name="ManageUsers" component={ManageUsers} />
+          <AdminStack.Screen name="ManageOneUser" component={ManageOneUser} />
+        </>
+      ) : null}
     </AdminStack.Navigator>
   );
 };

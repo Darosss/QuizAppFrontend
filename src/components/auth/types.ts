@@ -3,7 +3,7 @@ import {GetAuthStatusType} from "src/api";
 export type AuthContextType = {
   state: AuthContextStateType;
   actions: AuthContextActionsType;
-  isAdmin: boolean;
+  isAdmin: IsAdminContextStateType | false;
 };
 
 export type LoginData = {
@@ -21,6 +21,11 @@ export type AuthContextStateType = {
   userToken: string | null;
   isLoading: boolean;
   userInfo: null | GetAuthStatusType;
+};
+
+export type IsAdminContextStateType = {
+  admin: boolean;
+  superAdmin: boolean;
 };
 
 export type RequiredUserTokenType = NonNullable<

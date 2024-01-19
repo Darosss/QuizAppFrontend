@@ -38,3 +38,8 @@ export const quizesEndpointsUrls = {
   submissionsSubmit: (quizId: string) =>
     BaseEndpoints.QUIZES + BaseEndpoints.SUBMISSIONS + `${quizId}/submit`,
 };
+
+export const usersEndpointsUrls = {
+  users: BaseEndpoints.USERS,
+  userById: (userId: string) => BaseEndpoints.USERS + userId,
+};

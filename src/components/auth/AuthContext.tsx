@@ -20,6 +20,7 @@ import {
   AuthContextStateType,
   LoginData,
   AuthContextDispatchAction,
+  IsAdminContextStateType,
 } from "./types";
 
 const SECURE_STORE_USER_TOKEN_NAME = "userToken";
@@ -39,7 +40,9 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }): React.JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialAuthContextState);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<IsAdminContextStateType | false>(
+    false,
+  );
 
   const callAnAuthStatusApi = useCallback(
     async (userToken: AuthContextStateType["userToken"]) =>
@@ -106,12 +109,13 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     if (!state.userInfo) return;
-    setIsAdmin(
-      state.userInfo.user.roles.some(
-        role =>
-          role === UserRolesType.ADMIN || role === UserRolesType.SUPER_ADMIN,
-      ),
-    );
+    const {
+      user: {roles},
+    } = state.userInfo;
+    const isAdmin = roles.includes(UserRolesType.ADMIN);
+    const isSuperAdmin = roles.includes(UserRolesType.SUPER_ADMIN);
+    if (!isAdmin && !isSuperAdmin) setIsAdmin(false);
+    setIsAdmin({admin: isAdmin, superAdmin: isSuperAdmin});
   }, [state.userInfo]);
 
   return (

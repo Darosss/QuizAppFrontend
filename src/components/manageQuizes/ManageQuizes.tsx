@@ -1,10 +1,13 @@
 import {Text, View} from "react-native";
-import {Props} from "src/types";
+import {PropsAdminStack} from "src/types";
 import {QuizCategoriesList} from "../quizCategories/QuizCategoriesList";
 import {QuizData} from "./QuizData";
 import {styles} from "./styles";
 
-export const ManageQuizes = ({navigation, route}: Props<"ManageQuizes">) => {
+export const ManageQuizes = ({
+  navigation,
+  route,
+}: PropsAdminStack<"ManageQuizes">) => {
   return (
     <View>
       <QuizCategoriesList
